@@ -1,17 +1,65 @@
 #include "Precision_Notation.h"
 
 // Checks precise number for overflows and adjusts accordingly
-void check_precise(Precise* num)
+// Returns 1 on overflow error, 0 if fine
+uint8_t check_precise(Precise* num)
 {
-  // significand overflow check
-  for (int i = 0; i < 6; i++)
+  uint8_t overflow = 0;
   
-  return;
+  // significand overflow check
+  for (int i = 5; i >= 0; i--)
+  {
+    // add overflow from previous
+    if (overflow)
+    {
+      num->significand[i] += 1;
+      overflow = 0;
+    }
+
+    // overflow at 10^18
+    if (num->significand[i] >= 1000000000000000000)
+    {
+      overflow = 1;
+      num->significand[i] -= 1000000000000000000;
+    }
+  }
+
+  // exponent zero check (zero should be positive)
+  if (num->exponent == 0 && num->exponentSign == 1) num->exponentSign = 0;
+  
+  // overflow on greatest significand check
+  if (overflow)
+  {
+    // return error one if exponent is at positive maximum
+    if (num->exponentSign == 0 && num->exponent == 255) return 1;
+    
+    // increase exponent (add if positive, sub if negative, flip at 0)
+    if (num->exponentSign == 0) // add if positive
+    {
+      num->exponent += 1;
+    }
+    else // sub if negative
+    {
+      num->exponent -= 1;
+
+      if (num->exponent == 0) // flip if zero
+      {
+        num->exponentSign = 0;
+      }
+    }
+  }
+
+  // return no error 0
+  return 0;
 }
 
 // Adds two precise numbers, avoiding over- or under-flow
-void add_precise(Precise a, Precise b, Precise* result)
+// Returns 1 on overflow error, 0 if fine
+int add_precise(Precise a, Precise b, Precise* result)
 {
+  // return error 1 if inputs are bad
+  if (check_precise(&a) + check_precise(&b) != 0) return 1;
+  
   // check for over- and under-flow
 
   // add a and b
