@@ -1,5 +1,5 @@
 # Precision_Notation_C
-Using scientific notation as the base, precision notation is about being able to do math with up to 114 digits of precision.
+Using scientific notation as the base, precision notation is about being able to do math with up to 108 digits of precision.
 
 \
 Numbers are stored as below:\
@@ -31,7 +31,7 @@ newNum = div_precise(myNum, (Precise){0, {0, 0, 0, 0, 0, 2}, 0, 0}); // 123456.7
 newNum = exp_precise(myNum, (Precise){0, {0, 0, 0, 0, 0, 2}, 0, 0}); // 123456.789 ^ 2 = 15241578750.190521
 ```
 
-If any math function results in a repeating decimal, the number is truncated to 115 digits of precision.
+If any math function results in a repeating decimal, the number is truncated to 108 digits of precision.
 ```C
 newNum = div_precise((Precise){0, {0, 0, 0, 0, 0, 5}, 0, 0}, (Precise){0, {0, 0, 0, 0, 0, 3}, 0, 0});
 // 5 / 3
