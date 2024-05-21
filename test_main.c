@@ -3,7 +3,7 @@
  */
 
 #include <stdio.h>
-#include "Precision_Notation_C.h"
+#include "Precision_Notation.h"
 
 int main()
 {
