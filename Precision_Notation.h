@@ -20,12 +20,15 @@ typedef struct Precise {
 
 // --- Function Prototypes ---
 
+// Precise Number Checker
+void check_precise(Precise* a);
+
 // Basic Operators
-Precise* add_precise(Precise* a, Precise* b);
-Precise* sub_precise(Precise* a, Precise* b);
-Precise* mult_precise(Precise* a, Precise* b);
-Precise* div_precise(Precise* a, Precise* b);
-//Precise* exp_precise(Precise* a, Precise* b);
+void add_precise(Precise a, Precise b, Precise* result);
+void sub_precise(Precise a, Precise b, Precise* result);
+void mult_precise(Precise a, Precise b, Precise* result);
+void div_precise(Precise a, Precise b, Precise* result);
+//void exp_precise(Precise a, Precise b, Precise* result);
 
 
 #endif // PRECISION_NOTATION_H_
