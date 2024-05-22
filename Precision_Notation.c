@@ -3,6 +3,10 @@
 // Checks precise number for overflows and adjusts accordingly
 // Returns 1 on overflow error, 0 if fine
 uint8_t check_precise(Precise* num) {
+  // make signs 1 or 0 for safety
+  if (num->significandSign != 0) num->significandSign == 1;
+  if (num->exponentSign != 0) num->exponentSign == 1;
+  
   uint8_t overflow = 0;
   
   // significand overflow check
@@ -21,7 +25,7 @@ uint8_t check_precise(Precise* num) {
   }
 
   // exponent zero check (zero should be positive)
-  if (num->exponent == 0 && num->exponentSign == 1) num->exponentSign = 0;
+  if (num->exponent == 0 && num->exponentSign != 0) num->exponentSign = 0;
   
   // overflow on greatest significand check
   if (overflow) {
