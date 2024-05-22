@@ -13,14 +13,14 @@ uint8_t check_precise(Precise* num) {
   for (int i = 5; i >= 0; i--) {
     // add overflow from previous
     if (overflow) {
-      num->significand[i] += 1;
+      num->significand[i] += overflow;
       overflow = 0;
     }
 
     // overflow at 10^18
     if (num->significand[i] >= 1000000000000000000) {
-      overflow = 1;
-      num->significand[i] -= 1000000000000000000;
+      overflow = num->significand[i] / 1000000000000000000;
+      num->significand[i] -= 1000000000000000000 * overflow;
     }
   }
 
